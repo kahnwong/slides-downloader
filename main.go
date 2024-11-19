@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"os"
 	"time"
 
 	"github.com/gocolly/colly"
@@ -14,6 +15,12 @@ var (
 )
 
 func main() {
+	// create download dir
+	err := os.MkdirAll("data", os.ModePerm)
+	if err != nil {
+		log.Fatal().Err(err)
+	}
+
 	c := colly.NewCollector(
 	//colly.AllowedDomains("shed.com")
 	)
@@ -24,10 +31,10 @@ func main() {
 	})
 
 	// rate limiting
-	err := c.Limit(&colly.LimitRule{
+	err = c.Limit(&colly.LimitRule{
 		DomainGlob:  "*sched.com.*",
-		Parallelism: 4,
-		RandomDelay: 1 * time.Second,
+		Parallelism: 1,
+		RandomDelay: 2 * time.Second,
 	})
 	if err != nil {
 		log.Error().Err(err).Msg("Failed setting rate limiting")
