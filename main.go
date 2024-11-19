@@ -32,9 +32,9 @@ func main() {
 
 	// rate limiting
 	err = c.Limit(&colly.LimitRule{
-		DomainGlob:  "*sched.com.*",
+		DomainGlob:  "*",
 		Parallelism: 1,
-		RandomDelay: 2 * time.Second,
+		Delay:       8 * time.Second,
 	})
 	if err != nil {
 		log.Error().Err(err).Msg("Failed setting rate limiting")
@@ -51,7 +51,21 @@ func main() {
 
 	// 2nd layer - download
 	c.OnHTML("a.file-uploaded", func(e *colly.HTMLElement) {
-		fmt.Println(e.Attr("href"))
+		text := e.Attr("href")
+
+		// open file
+		f, err := os.OpenFile("data/urls.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+		if err != nil {
+			panic(err)
+		}
+		defer f.Close()
+
+		// write to file
+		if _, err = f.WriteString(fmt.Sprintf("%s\n", text)); err != nil {
+			panic(err)
+		}
+
+		fmt.Print(".") // for progress bar
 	})
 
 	// start spider
