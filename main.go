@@ -9,12 +9,7 @@ import (
 	"github.com/rs/zerolog/log"
 )
 
-var (
-	event = "pytorch2024"
-	date  = "2024-09-19"
-)
-
-func main() {
+func download(event string) {
 	// create download dir
 	err := os.MkdirAll("data", os.ModePerm)
 	if err != nil {
@@ -34,7 +29,7 @@ func main() {
 	err = c.Limit(&colly.LimitRule{
 		DomainGlob:  "*",
 		Parallelism: 1,
-		Delay:       8 * time.Second,
+		RandomDelay: 8 * time.Second,
 	})
 	if err != nil {
 		log.Error().Err(err).Msg("Failed setting rate limiting")
@@ -54,7 +49,7 @@ func main() {
 		text := e.Attr("href")
 
 		// open file
-		f, err := os.OpenFile("data/urls.txt", os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
+		f, err := os.OpenFile(fmt.Sprintf("data/%s.txt", event), os.O_APPEND|os.O_WRONLY|os.O_CREATE, 0600)
 		if err != nil {
 			panic(err)
 		}
@@ -69,11 +64,22 @@ func main() {
 	})
 
 	// start spider
-	url := fmt.Sprintf("https://%s.sched.com/%s/overview", event, date)
+	url := fmt.Sprintf("https://%s.sched.com/overview", event)
 	fmt.Printf("Start crawling %s\n", url)
 
 	err = c.Visit(url)
 	if err != nil {
 		log.Error().Err(err).Msg("Failed to visit talk overview")
+	}
+
+	fmt.Print("\n")
+}
+
+func main() {
+	events := []string{
+		"spiffespiredayna20",
+	}
+	for _, event := range events {
+		download(event)
 	}
 }
