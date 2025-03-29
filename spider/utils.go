@@ -3,6 +3,8 @@ package spider
 import (
 	"fmt"
 	"os"
+
+	"github.com/rs/zerolog/log"
 )
 
 func AppendLineToFile(filename string, data string) {
@@ -11,10 +13,15 @@ func AppendLineToFile(filename string, data string) {
 	if err != nil {
 		panic(err)
 	}
-	defer f.Close()
+	defer func(f *os.File) {
+		err := f.Close()
+		if err != nil {
+			log.Fatal().Msg("failed to close file")
+		}
+	}(f)
 
 	// write to file
-	if _, err = f.WriteString(fmt.Sprintf("%s\n", data)); err != nil {
+	if _, err = fmt.Fprintf(f, "%s\n", data); err != nil {
 		panic(err)
 	}
 }

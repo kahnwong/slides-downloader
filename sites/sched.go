@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	"github.com/gocolly/colly"
-	"github.com/kahnwong/sched-downloader/spider"
+	"github.com/kahnwong/slides-downloader/spider"
 	"github.com/rs/zerolog/log"
 )
 

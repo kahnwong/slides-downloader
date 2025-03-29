@@ -3,7 +3,7 @@ package main
 import (
 	"os"
 
-	"github.com/kahnwong/sched-downloader/sites"
+	"github.com/kahnwong/slides-downloader/sites"
 
 	"github.com/rs/zerolog/log"
 )
