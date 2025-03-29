@@ -16,12 +16,20 @@ func main() {
 		log.Fatal().Msg("No site specified")
 	}
 
-	if site == "sched" {
+	switch site {
+	case "sched":
 		events := []string{
 			"spiffespiredayna20",
 		}
 		for _, event := range events {
 			sites.SchedSpider(event)
+		}
+	case "srecon":
+		events := []string{
+			"https://www.usenix.org/conference/srecon24emea/program",
+		}
+		for _, event := range events {
+			sites.SreconSpider(event)
 		}
 	}
 }
