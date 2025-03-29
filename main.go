@@ -44,6 +44,15 @@ func main() {
 				sites.ScaleSpider(url)
 			}
 		}
+
+	case "fossdem":
+		events := []string{
+			"https://fosdem.org/2025/schedule/events/",
+		}
+
+		for _, event := range events {
+			sites.FossdemSpider(event)
+		}
 	}
 }
 
