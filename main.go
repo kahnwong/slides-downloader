@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"os"
 
 	"github.com/kahnwong/slides-downloader/sites"
@@ -30,6 +31,18 @@ func main() {
 		}
 		for _, event := range events {
 			sites.SreconSpider(event)
+		}
+	case "scale":
+		events := []string{
+			"https://www.socallinuxexpo.org/scale/20x/presentations",
+		}
+
+		totalPages := 18
+		for _, event := range events {
+			for page := range totalPages {
+				url := fmt.Sprintf("%s?page=%v", event, page)
+				sites.ScaleSpider(url)
+			}
 		}
 	}
 }

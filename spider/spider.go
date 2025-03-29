@@ -1,6 +1,9 @@
 package spider
 
 import (
+	"os"
+	"strconv"
+	"strings"
 	"time"
 
 	"github.com/gocolly/colly"
@@ -16,14 +19,20 @@ func InitSpider() *colly.Collector {
 	})
 
 	// rate limiting
+	randomDelaySecond := stringToInt(os.Getenv("RANDOM_DELAY_SECOND"))
 	err := c.Limit(&colly.LimitRule{
 		DomainGlob:  "*",
-		Parallelism: 1,
-		RandomDelay: 8 * time.Second,
+		Parallelism: stringToInt(os.Getenv("PARALLELISM")),
+		RandomDelay: time.Duration(randomDelaySecond) * time.Second,
 	})
 	if err != nil {
 		log.Error().Err(err).Msg("Failed setting rate limiting")
 	}
 
 	return c
+}
+
+func stringToInt(s string) int {
+	vInt, _ := strconv.ParseInt(strings.TrimSpace(s), 10, 64)
+	return int(vInt)
 }
