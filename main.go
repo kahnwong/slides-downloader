@@ -62,7 +62,17 @@ func main() {
 		for _, page := range pages {
 			sites.SpeakerdeckSpider(page)
 		}
+
+	case "virusbulletin":
+		events := []string{
+			"vb2024",
+		}
+
+		for _, event := range events {
+			sites.VirusBulletinSpider(event)
+		}
 	}
+
 }
 
 func init() {
