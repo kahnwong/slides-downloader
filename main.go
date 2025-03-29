@@ -53,6 +53,15 @@ func main() {
 		for _, event := range events {
 			sites.FossdemSpider(event)
 		}
+
+	case "speakerdeck":
+		pages := []string{
+			"adamtornhill",
+		}
+
+		for _, page := range pages {
+			sites.SpeakerdeckSpider(page)
+		}
 	}
 }
 
