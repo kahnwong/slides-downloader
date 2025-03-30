@@ -1,7 +1,7 @@
 # slides-downloader
 
 ```bash
-aria2c --input-file *.txt --auto-file-renaming=false --continue=true --check-integrity=true
+fd txt | xargs -I {} aria2c --input-file {} --auto-file-renaming=false --continue=true --check-integrity=true
 ```
 
 ## Parameters
