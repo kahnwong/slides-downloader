@@ -71,8 +71,15 @@ func main() {
 		for _, event := range events {
 			sites.VirusBulletinSpider(event)
 		}
-	}
+	case "pgevents":
+		events := []string{
+			"pgconfdev2025",
+		}
 
+		for _, event := range events {
+			sites.PgEvents(event)
+		}
+	}
 }
 
 func init() {
