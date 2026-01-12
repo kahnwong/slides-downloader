@@ -20,14 +20,14 @@ func main() {
 	switch site {
 	case "sched":
 		events := []string{
-			"spiffespiredayna20",
+			"pytorchconference",
 		}
 		for _, event := range events {
 			sites.SchedSpider(event)
 		}
 	case "srecon":
 		events := []string{
-			"https://www.usenix.org/conference/srecon24emea/program",
+			"https://www.usenix.org/conference/srecon25emea/program",
 		}
 		for _, event := range events {
 			sites.SreconSpider(event)
@@ -79,7 +79,16 @@ func main() {
 		for _, event := range events {
 			sites.PgEvents(event)
 		}
+	case "postgresqleu":
+		events := []string{
+			"pgconfeu2025",
+		}
+
+		for _, event := range events {
+			sites.PostgresqlEu(event)
+		}
 	}
+
 }
 
 func init() {
