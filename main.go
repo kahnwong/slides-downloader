@@ -62,7 +62,6 @@ func main() {
 		for _, page := range pages {
 			sites.SpeakerdeckSpider(page)
 		}
-
 	case "virusbulletin":
 		events := []string{
 			"vb2024",
@@ -86,6 +85,14 @@ func main() {
 
 		for _, event := range events {
 			sites.PostgresqlEu(event)
+		}
+	case "osacon":
+		events := []string{
+			"2025",
+		}
+
+		for _, event := range events {
+			sites.OsaCon(event)
 		}
 	}
 
