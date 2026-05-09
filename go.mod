@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/gocolly/colly v1.2.0
-	github.com/rs/zerolog v1.34.0
+	github.com/rs/zerolog v1.35.1
 )
 
 require (
