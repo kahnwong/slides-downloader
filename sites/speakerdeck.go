@@ -2,7 +2,8 @@ package sites
 
 import (
 	"fmt"
-	"github.com/gocolly/colly"
+
+	"github.com/gocolly/colly/v2"
 	"github.com/kahnwong/slides-downloader/spider"
 	"github.com/rs/zerolog/log"
 )
